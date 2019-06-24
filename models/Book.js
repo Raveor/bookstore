@@ -17,11 +17,6 @@ let BookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    currentHealth: {
-        type: Number,
-        required: true,
-        default: 1
-    },
     author: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
