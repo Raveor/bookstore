@@ -1,6 +1,6 @@
 let express = require('express');
 let jwt = require('jsonwebtoken');
-let bcrypt = require('bcrypt');
+let bcrypt = require('bcryptjs');
 let passport = require('passport');
 let router = express.Router();
 
@@ -22,13 +22,12 @@ router.post('/register', function (req, res) {
         return;
     }
 
-    let hash = bcrypt.hashSync(password, 10);
+    let hash = bcrypt.hashSync(password, 8);
 
     UserModel
         .create({
             email: email,
-            password: password
-            // password: hash
+            password: hash
         })
         .then(user => {
             sendApiOk(res, "Your account has been created. Now you can log in.");

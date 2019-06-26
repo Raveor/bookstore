@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-let bcrypt = require('bcrypt');
+let bcrypt = require('bcryptjs');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -43,17 +43,9 @@ passport.use('localClient', new LocalStrategy(
                     return cb(null, false);
                 }
 
-                /*
-                let hash = bcrypt.hashSync(password, 10);
+                let isPasswordValid = bcrypt.compareSync(password, user.password);
 
-                if (bcrypt.compareSync(user.password, hash)) {
-                    return cb(null, false);
-                }
-
-                 */
-
-                if (user.password !== password) {
-                    console.log("ROZNE HASLA")
+                if (!isPasswordValid) {
                     return cb(null, false);
                 }
 
