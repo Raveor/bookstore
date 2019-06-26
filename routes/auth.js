@@ -13,12 +13,12 @@ router.post('/register', function (req, res) {
     let password = req.body.password;
 
     if (!email) {
-        sendApiError(res, 500, "Email is required"); //TODO change HTTP code
+        sendApiError(res, 406, "Email is required");
         return;
     }
 
     if (!password) {
-        sendApiError(res, 500, "Password is required"); //TODO change HTTP code
+        sendApiError(res, 406, "Password is required");
         return;
     }
 
@@ -40,13 +40,21 @@ router.post('/register', function (req, res) {
 router.post('/login', passport.authenticate('localClient', {failureRedirect: '/auth/login/error'}), function (req, res) {
     let userId = req.user._id;
 
-    let token = jwt.sign({id: userId}, config.jwtSecret, {expiresIn: config.jwtTime});
+    let token = jwt.sign({id: userId, role: "client"}, config.jwtSecret, {expiresIn: config.jwtTime});
+
+    sendApiToken(res, token)
+});
+
+router.post('/administrator/login', passport.authenticate('localAdministrator', {failureRedirect: '/auth/login/error'}), function (req, res) {
+    let userId = req.user._id;
+
+    let token = jwt.sign({id: userId, role: "administrator"}, config.jwtSecret, {expiresIn: config.jwtTime});
 
     sendApiToken(res, token)
 });
 
 router.get('/login/error', function (req, res) {
-    res.send("login error")
+    sendApiError(res, 418, "Couldn't log in. Check your login and password.")
 });
 
 function sendApiError(res, code, message) {

@@ -20,7 +20,7 @@ function verifyAdminToken(req, res, next) {
             return;
         }
 
-        if (decoded.isAdmin === false) {
+        if (decoded.role !== "administrator") {
             res
                 .status(401)
                 .send(ApiUtils.getApiError("Token doesn't belong to administrator"));

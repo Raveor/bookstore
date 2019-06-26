@@ -10,12 +10,10 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     googleId: {
-        type: String,
-        unique: true
+        type: String
     },
     facebookId: {
-        type: String,
-        unique: true
+        type: String
     }
 });
 

@@ -56,25 +56,65 @@ passport.use('localClient', new LocalStrategy(
             })
     }));
 
+passport.use('localAdministrator', new LocalStrategy(
+    {usernameField: "login", passwordField: "password"},
+    function (username, password, cb) {
+        let AdministratorModel = require('./models/Administrator');
+
+        AdministratorModel
+            .findOne({login: username})
+            .then(user => {
+                if (!user) {
+                    return cb(null, false);
+                }
+
+                let isPasswordValid = bcrypt.compareSync(password, user.password);
+
+                if (!isPasswordValid) {
+                    return cb(null, false);
+                }
+
+                return cb(null, user);
+            })
+            .catch(reason => {
+                return cb(reason);
+            })
+    }));
+
 passport.serializeUser(function (user, cb) {
     let userId = user._id;
+    let isAdmin = user.login !== undefined;
 
-    cb(null, userId);
+    cb(null, [userId, isAdmin]);
 });
 
 passport.deserializeUser(function (userData, cb) {
-    let UserModel = require('./models/User');
+    let userId = userData[0];
+    let isAdmin = userData[1];
 
-    let id = userData;
+    if (isAdmin) {
+        let AdministratorModel = require('./models/User');
 
-    UserModel
-        .findOne({_id: id})
-        .then(user => {
-            cb(null, users);
-        })
-        .catch(reason => {
-            return cb(reason);
-        })
+        AdministratorModel
+            .findOne({_id: userId})
+            .then(user => {
+                cb(null, user);
+            })
+            .catch(reason => {
+                return cb(reason);
+            })
+    } else {
+        let UserModel = require('./models/User');
+
+        UserModel
+            .findOne({_id: userId})
+            .then(user => {
+                cb(null, user);
+            })
+            .catch(reason => {
+                return cb(reason);
+            })
+    }
 });
 
 // catch 404 and forward to error handler
