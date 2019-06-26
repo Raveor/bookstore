@@ -6,7 +6,7 @@ let AuthorSchema = new mongoose.Schema({
         required: true
     },
     surname: {
-        type: Number,
+        type: String,
         required: true
     }
 });
