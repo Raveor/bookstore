@@ -8,16 +8,31 @@ let AuthorModel = require('../models/Author');
 //TODO add TokenValidators
 
 router.get('/', function (req, res, next) {
-    AuthorModel
-        .find()
-        .then(authors => {
-            return res
-                .status(200)
-                .json(authors)
-        })
-        .catch(reason => {
-            sendApiError(res, 500, "Couldn't download authors: " + reason.message)
-        });
+    let authorId = req.body.id;
+
+    if (authorId) {
+        AuthorModel
+            .findOne({"_id": authorId})
+            .then(author => {
+                return res
+                    .status(200)
+                    .json(author)
+            })
+            .catch(reason => {
+                sendApiError(res, 500, "Couldn't download authors: " + reason.message)
+            });
+    } else {
+        AuthorModel
+            .find()
+            .then(authors => {
+                return res
+                    .status(200)
+                    .json(authors)
+            })
+            .catch(reason => {
+                sendApiError(res, 500, "Couldn't download authors: " + reason.message)
+            });
+    }
 });
 
 router.post('/add', function (req, res, next) {
@@ -66,7 +81,7 @@ router.delete('/delete', function (req, res, next) {
         })
 });
 
-router.put('/edit', function (req, res, next) {
+router.patch('/edit', function (req, res, next) {
     let authorId = req.body.id;
 
     if (!authorId) {
