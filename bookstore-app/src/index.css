@@ -11,3 +11,47 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.box{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap
+}
+.material-icons{
+  font-size: 2.4em;
+  cursor: pointer;
+}
+.card{
+  width: 300px;
+}
+/*.card .card-image .card-title{*/
+/*  !*display: block;*!*/
+/*  color: -moz-mac-accentdarkestshadow;*/
+/*  !*background: rgba(255, 255, 255, 0.86);*!*/
+/*  border-radius: 100px;*/
+/*  padding: 10px;*/
+/*  !*filter: drop-shadow(.05em .05em orange);*!*/
+/*  mix-blend-mode: difference;*/
+/*  font: 400 2vmin/3vh "Helvetica Neue";*/
+/*}*/
+.cart{
+  margin-top:40px;
+}
+.collection .collection-item{
+  display: flex;
+}
+.collection-item.avatar .title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #ee6e73;
+  display: block;
+  margin-bottom: 20px;
+
+}
+.collection .collection-item img{
+  width: 150px;
+  margin-right: 25px;
+}
+.item-desc {
+  align-self:center;
+}
