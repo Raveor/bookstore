@@ -13,8 +13,11 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
 var bookTypesRouter = require('./routes/bookTypes');
-var authorsRouter = require('./routes/authors');var publishingHouseRouter = require('./routes/publishingHouses');var app = express();
+var authorsRouter = require('./routes/authors');
+var publishingHouseRouter = require('./routes/publishingHouses');
+var booksRouter = require('./routes/books');
 
+var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -28,10 +31,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 
 app.use('/', indexRouter);
-app.use('/api/users', usersRouter);
+app.use('/api/user', usersRouter);
 app.use('/api/auth', authRouter);
-app.use('/api/authors', authorsRouter);
-app.use('/api/booktypes', bookTypesRouter);app.use('/api/publishingHouses', publishingHouseRouter);
+app.use('/api/author', authorsRouter);
+app.use('/api/booktype', bookTypesRouter);
+app.use('/api/publishingHouse', publishingHouseRouter);
+app.use('/api/book', booksRouter);
+
 passport.use('localClient', new LocalStrategy(
     {usernameField: "email", passwordField: "password"},
     function (username, password, cb) {
