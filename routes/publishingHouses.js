@@ -4,8 +4,7 @@ let router = express.Router();
 let ApiUtils = require('../utils/ApiUtils');
 
 let PublishingHouseModel = require('../models/PublishingHouse');
-
-//TODO add TokenValidators
+let AdminTokenValidator = require('../utils/AdminTokenValidator');
 
 router.get('/', function (req, res, next) {
     PublishingHouseModel
@@ -20,7 +19,7 @@ router.get('/', function (req, res, next) {
         });
 });
 
-router.get('/', function (req, res, next) {
+router.get('/:id', function (req, res, next) {
     let publishingHouseId = req.params.id;
 
     PublishingHouseModel
@@ -35,7 +34,7 @@ router.get('/', function (req, res, next) {
         });
 });
 
-router.put('/add', function (req, res, next) {
+router.put('/add', AdminTokenValidator, function (req, res, next) {
     let publishingHouseName = req.body.name;
 
     if (!publishingHouseName) {
@@ -75,7 +74,7 @@ router.delete('/delete', function (req, res, next) {
         })
 });
 
-router.patch('/edit', function (req, res, next) {
+router.patch('/edit', AdminTokenValidator, function (req, res, next) {
     let publishingHouseId = req.body.id;
 
     if (!publishingHouseId) {
