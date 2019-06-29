@@ -13,6 +13,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
 var bookTypesRouter = require('./routes/bookTypes');
+var authorsRouter = require('./routes/authors');
 var app = express();
 
 // view engine setup
@@ -30,6 +31,7 @@ app.use(passport.initialize());
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/authors', authorsRouter);
 app.use('/api/booktypes', bookTypesRouter);
 
 passport.use('localClient', new LocalStrategy(
