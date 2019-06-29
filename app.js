@@ -13,8 +13,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
 var bookTypesRouter = require('./routes/bookTypes');
-var authorsRouter = require('./routes/authors');
-var app = express();
+var authorsRouter = require('./routes/authors');var publishingHouseRouter = require('./routes/publishingHouses');var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,8 +31,7 @@ app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/authors', authorsRouter);
-app.use('/api/booktypes', bookTypesRouter);
-
+app.use('/api/booktypes', bookTypesRouter);app.use('/api/publishingHouses', publishingHouseRouter);
 passport.use('localClient', new LocalStrategy(
     {usernameField: "email", passwordField: "password"},
     function (username, password, cb) {
