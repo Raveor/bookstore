@@ -34,7 +34,7 @@ router.get('/:id', function (req, res, next) {
         });
 });
 
-router.put('/add', AdminTokenValidator, function (req, res, next) {
+router.put('/', AdminTokenValidator, function (req, res, next) {
     let bookTypeName = req.body.name;
 
     if (!bookTypeName) {
@@ -55,7 +55,7 @@ router.put('/add', AdminTokenValidator, function (req, res, next) {
         })
 });
 
-router.delete('/delete', AdminTokenValidator, function (req, res, next) {
+router.delete('/', AdminTokenValidator, function (req, res, next) {
     let bookTypeId = req.body.id;
 
     if (!bookTypeId) {
@@ -74,7 +74,7 @@ router.delete('/delete', AdminTokenValidator, function (req, res, next) {
         })
 });
 
-router.patch('/edit', AdminTokenValidator, function (req, res, next) {
+router.patch('/', AdminTokenValidator, function (req, res, next) {
     let bookTypeId = req.body.id;
 
     if (!bookTypeId) {

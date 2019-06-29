@@ -41,7 +41,7 @@ router.get('/:id', function (req, res, next) {
         });
 });
 
-router.put('/add', AdminTokenValidator, function (req, res, next) {
+router.put('/', AdminTokenValidator, function (req, res, next) {
     let bookTitle = req.body.title;
     let bookPrice = req.body.price;
     let bookPublishYear = req.body.publishYear;
@@ -98,7 +98,7 @@ router.put('/add', AdminTokenValidator, function (req, res, next) {
         })
 });
 
-router.delete('/delete', AdminTokenValidator, function (req, res, next) {
+router.delete('/', AdminTokenValidator, function (req, res, next) {
     let bookId = req.body.id;
 
     if (!bookId) {
@@ -117,7 +117,7 @@ router.delete('/delete', AdminTokenValidator, function (req, res, next) {
         })
 });
 
-router.patch('/edit', AdminTokenValidator, function (req, res, next) {
+router.patch('/', AdminTokenValidator, function (req, res, next) {
     let bookId = req.body.id;
 
     if (!bookId) {

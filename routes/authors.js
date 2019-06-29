@@ -34,7 +34,7 @@ router.get('/:id', function (req, res, next) {
         });
 });
 
-router.put('/add', AdminTokenValidator, function (req, res, next) {
+router.put('/', AdminTokenValidator, function (req, res, next) {
     let authorName = req.body.name;
     let authorSurname = req.body.surname;
 
@@ -61,7 +61,7 @@ router.put('/add', AdminTokenValidator, function (req, res, next) {
         })
 });
 
-router.delete('/delete', AdminTokenValidator, function (req, res, next) {
+router.delete('/', AdminTokenValidator, function (req, res, next) {
     let authorId = req.body.id;
 
     if (!authorId) {
@@ -80,7 +80,7 @@ router.delete('/delete', AdminTokenValidator, function (req, res, next) {
         })
 });
 
-router.patch('/edit', AdminTokenValidator, function (req, res, next) {
+router.patch('/', AdminTokenValidator, function (req, res, next) {
     let authorId = req.body.id;
 
     if (!authorId) {

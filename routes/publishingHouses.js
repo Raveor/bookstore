@@ -34,7 +34,7 @@ router.get('/:id', function (req, res, next) {
         });
 });
 
-router.put('/add', AdminTokenValidator, function (req, res, next) {
+router.put('/', AdminTokenValidator, function (req, res, next) {
     let publishingHouseName = req.body.name;
 
     if (!publishingHouseName) {
@@ -55,7 +55,7 @@ router.put('/add', AdminTokenValidator, function (req, res, next) {
         })
 });
 
-router.delete('/delete', function (req, res, next) {
+router.delete('/', function (req, res, next) {
     let publishingHouseId = req.body.id;
 
     if (!publishingHouseId) {
@@ -74,7 +74,7 @@ router.delete('/delete', function (req, res, next) {
         })
 });
 
-router.patch('/edit', AdminTokenValidator, function (req, res, next) {
+router.patch('/', AdminTokenValidator, function (req, res, next) {
     let publishingHouseId = req.body.id;
 
     if (!publishingHouseId) {
