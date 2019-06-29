@@ -8,34 +8,34 @@ let PublishingHouseModel = require('../models/PublishingHouse');
 //TODO add TokenValidators
 
 router.get('/', function (req, res, next) {
-    let publishingHouseId = req.body.id;
-
-    if (publishingHouseId) {
-        PublishingHouseModel
-            .findOne({"_id": publishingHouseId})
-            .then(publishingHouse => {
-                return res
-                    .status(200)
-                    .json(publishingHouse)
-            })
-            .catch(reason => {
-                sendApiError(res, 500, "Couldn't download publishing houses: " + reason.message)
-            });
-    } else {
-        PublishingHouseModel
-            .find()
-            .then(publishingHouses => {
-                return res
-                    .status(200)
-                    .json(publishingHouses)
-            })
-            .catch(reason => {
-                sendApiError(res, 500, "Couldn't download publishing houses: " + reason.message)
-            });
-    }
+    PublishingHouseModel
+        .find()
+        .then(publishingHouses => {
+            return res
+                .status(200)
+                .json(publishingHouses)
+        })
+        .catch(reason => {
+            sendApiError(res, 500, "Couldn't download publishing houses: " + reason.message)
+        });
 });
 
-router.post('/add', function (req, res, next) {
+router.get('/', function (req, res, next) {
+    let publishingHouseId = req.params.id;
+
+    PublishingHouseModel
+        .findOne({"_id": publishingHouseId})
+        .then(publishingHouse => {
+            return res
+                .status(200)
+                .json(publishingHouse)
+        })
+        .catch(reason => {
+            sendApiError(res, 500, "Couldn't download publishing house: " + reason.message)
+        });
+});
+
+router.put('/add', function (req, res, next) {
     let publishingHouseName = req.body.name;
 
     if (!publishingHouseName) {
