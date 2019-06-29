@@ -8,34 +8,34 @@ let BookTypeModel = require('../models/BookType');
 //TODO add TokenValidators
 
 router.get('/', function (req, res, next) {
-    let bookTypeId = req.body.id;
-
-    if (bookTypeId) {
-        BookTypeModel
-            .findOne({"_id": bookTypeId})
-            .then(bookType => {
-                return res
-                    .status(200)
-                    .json(bookType)
-            })
-            .catch(reason => {
-                sendApiError(res, 500, "Couldn't download book types: " + reason.message)
-            });
-    } else {
-        BookTypeModel
-            .find()
-            .then(bookTypes => {
-                return res
-                    .status(200)
-                    .json(bookTypes)
-            })
-            .catch(reason => {
-                sendApiError(res, 500, "Couldn't download book types: " + reason.message)
-            });
-    }
+    BookTypeModel
+        .find()
+        .then(bookTypes => {
+            return res
+                .status(200)
+                .json(bookTypes)
+        })
+        .catch(reason => {
+            sendApiError(res, 500, "Couldn't download book types: " + reason.message)
+        });
 });
 
-router.post('/add', function (req, res, next) {
+router.get('/:id', function (req, res, next) {
+    let bookTypeId = req.params.id;
+
+    BookTypeModel
+        .findOne({"_id": bookTypeId})
+        .then(bookType => {
+            return res
+                .status(200)
+                .json(bookType)
+        })
+        .catch(reason => {
+            sendApiError(res, 500, "Couldn't download book type: " + reason.message)
+        });
+});
+
+router.put('/add', function (req, res, next) {
     let bookTypeName = req.body.name;
 
     if (!bookTypeName) {
