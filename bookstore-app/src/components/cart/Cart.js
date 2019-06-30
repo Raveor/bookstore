@@ -30,26 +30,27 @@ class Cart extends Component {
 
                         <li className="collection-item avatar" key={item.id}>
                             <div className="item-img">
-                                <img src={'http://localhost:9000/assets/images/products/' + item.image} alt={item.name}/>
+                                {/*<img src={'/assets/images/products/' + item.image} alt={item.name}/>*/}
                             </div>
 
                             <div className="item-desc">
-                                <span className="title">{item.name}</span>
+                                <span className="title">{item.title}</span>
+                                <p>{item.author.author}</p>
                                 <p>{item.description}</p>
-                                <p><b>Price: {item.regular_price}$</b></p>
+                                <p><b>Price: {item.price}$</b></p>
                                 <p>
                                     <b>Quantity: {item.localQuantity}</b>
                                 </p>
                                 <div className="add-remove">
                                     <Link to="/cart"><i className="material-icons" onClick={() => {
-                                        this.handleAddQuantity(item.id)
+                                        this.handleAddQuantity(item._id)
                                     }}>arrow_drop_up</i></Link>
                                     <Link to="/cart"><i className="material-icons" onClick={() => {
-                                        this.handleSubtractQuantity(item.id)
+                                        this.handleSubtractQuantity(item._id)
                                     }}>arrow_drop_down</i></Link>
                                 </div>
                                 <button className="waves-effect waves-light btn pink remove" onClick={() => {
-                                    this.handleRemove(item.id)
+                                    this.handleRemove(item._id)
                                 }}>Remove
                                 </button>
                             </div>

@@ -8,8 +8,8 @@ import {connect} from "react-redux";
 class Navbar extends Component {
     render() {
         let icons = this.props.user.isAuthenticated ? "" : <React.Fragment>
-            <li><a href="http://localhost:9000/authenticate/facebook"><FaFacebookF/></a></li>
-            <li><a href="http://localhost:9000/authenticate/google"><FaGoogle/></a></li>
+            <li><a href="/authenticate/facebook"><FaFacebookF/></a></li>
+            <li><a href="/authenticate/google"><FaGoogle/></a></li>
         </React.Fragment>;
 
         let admin = !this.props.user.isAdmin ? "" : <li><Link to="/admin"><i className="material-icons">info</i></Link></li>;

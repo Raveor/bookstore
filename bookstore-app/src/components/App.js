@@ -28,29 +28,11 @@ function App() {
                     <div className="App">
                         <Navbar/>
                         <Route exact path="/" component={Home}/>
-                        <Route path="/authenticate" component={Authenticate}/>
-
-                        {/*<Route exact path="/admin" component={Landing}/>*/}
+                        <Route exact path="/cart" component={Cart}/>
                         <Switch>
-                        <AdminRoute exact path="/admin" component={Landing}/>
-                        <AdminRoute exact path="/products" component={ProductList}/>
-                        <AdminRoute exact path="/cart" component={Cart}/>
-                        <AdminRoute exact path="/users" component={UsersList}/>
-                        <AdminRoute exact path="/orders" component={OrderList}/>
-                        <AdminRoute exact path="/sales" component={SaleList}/>
-                        <AdminRoute exact path="/categories" component={CategoryList}/>
-                        <AdminRoute exact path="/categories/form" component={CategoryForm}/>
-                        <AdminRoute exact path="/products/form" component={ProductForm}/>
-                        <AdminRoute exact path="/users/form" component={UserForm}/>
-                        <AdminRoute exact path="/sales/form" component={SaleForm}/>
-                        <AdminRoute exact path="/orders/form" component={OrderForm}/>
+                            <AdminRoute exact path="/admin" component={Landing}/>
+                            <AdminRoute exact path="/categories" component={CategoryList}/>
                         </Switch>
-                        {/*<Route exact path="/login" component={Login} />*/}
-                        {/*<Switch>*/}
-                        {/*    <PrivateRoute exact path="/dashboard" component={Dashboard} />*/}
-                        {/*    <PrivateRoute exact path="/cars" component={AvailableCarList} />*/}
-                        {/*    <PrivateRoute exact path="/rented" component={RentedCarList} />*/}
-                        {/*</Switch>*/}
                     </div>
                 </Router>
         </Provider>

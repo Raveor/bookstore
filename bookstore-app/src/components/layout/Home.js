@@ -2,12 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import {addToCart} from '../../actions/cartActions'
 import {fetch_items} from "../../actions/itemsActions";
+import M from 'materialize-css';
 import Filter from "./Filter";
 
 class Home extends Component {
 
     componentDidMount() {
         this.props.fetch_items();
+
     }
 
     handleClick = (id) => {
@@ -16,18 +18,18 @@ class Home extends Component {
 
     render() {
         let itemList = this.props.items && this.props.items.length > 0 ? this.props.items.map(item => (
-                <div className="card" key={item.id}>
+                <div className="card" key={item._id}>
                     <div className="card-image" >
-                        <img src={'http://localhost:9000/assets/images/products/' + item.image} alt={item.name}/>
-                        <span className="btn-floating halfway-fab waves-effect waves-light red" onClick={() => {
+                        <button className="btn-floating btn halfway-fab waves-effect waves-light red" onClick={() => {
                             this.handleClick(item)
-                        }}><i className="material-icons">add</i></span>
+                        }}><i className="material-icons">add</i></button>
                     </div>
 
                     <div className="card-content">
-                        <div className="card-title">{item.name}</div>
+                        <div className="card-title">{item.title}</div>
+                        <p>{item.author.name + " " +  item.author.surname}</p>
                         <p>{item.description}</p>
-                        <p><b>Price: {item.regular_price}zł</b></p>
+                        <p><b>Price: {item.price}zł</b></p>
                     </div>
                 </div>
         )) : (

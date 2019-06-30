@@ -24,16 +24,7 @@ code {
 .card{
   width: 300px;
 }
-/*.card .card-image .card-title{*/
-/*  !*display: block;*!*/
-/*  color: -moz-mac-accentdarkestshadow;*/
-/*  !*background: rgba(255, 255, 255, 0.86);*!*/
-/*  border-radius: 100px;*/
-/*  padding: 10px;*/
-/*  !*filter: drop-shadow(.05em .05em orange);*!*/
-/*  mix-blend-mode: difference;*/
-/*  font: 400 2vmin/3vh "Helvetica Neue";*/
-/*}*/
+
 .cart{
   margin-top:40px;
 }

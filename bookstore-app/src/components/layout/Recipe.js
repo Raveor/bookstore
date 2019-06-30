@@ -15,12 +15,12 @@ class Recipe extends Component{
     };
 
     checkCheckout = () => {
-        if(!this.props.user){
+        if(!this.props.user.isAuthenticated){
             alert("You are not logged in!");
         } else if(this.props.cartItems && this.props.cartItems.length === 0){
             alert("Add something to your cart!");
         } else{
-            this.props.checkout(this.props.user.userID, this.props.total, this.props.cartItems)
+            this.props.checkout(this.props.user.userID, this.props.total, this.props.cartItems);
             alert("Your order was received!");
         }
     };

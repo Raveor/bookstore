@@ -18,22 +18,22 @@ export const getCartItems = () => {
     }
 };
 
-export const removeItem=(id)=>{
+export const removeItem=(_id)=>{
     return{
         type: REMOVE_FROM_CART,
-        id
+        _id
     }
 };
-export const addQuantity=(id)=>{
+export const addQuantity=(_id)=>{
     return{
         type: ADD_QUANTITY,
-        id
+        _id
     }
 };
-export const subQuantity=(id)=>{
+export const subQuantity=(_id)=>{
     return{
         type: SUB_QUANTITY,
-        id
+        _id
     }
 };
 

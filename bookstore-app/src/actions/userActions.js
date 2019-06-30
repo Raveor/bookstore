@@ -4,7 +4,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 export const setUser = () => dispatch => {
     axios
-        .get("/user", {withCredentials: true})
+        .get("/user")
         .then(res => {
             console.log(res.data);
             console.log(JSON.stringify(res.data));

@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 export const fetch_items = () => dispatch => {
     axios
-        .get("http://localhost:9000/products", {withCredentials: true})
+        .get("/api/book")
         .then(res => dispatch({
             type: FETCH_ITEMS,
             payload: res.data
