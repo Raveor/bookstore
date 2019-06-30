@@ -1,7 +1,8 @@
 import {FETCH_ITEMS, UPDATE_FILTER} from "../actions/types";
 
 const initialState = {
-    items: []
+    items: [],
+    filters: []
 };
 
 export default function (state = initialState, action) {
@@ -14,7 +15,7 @@ export default function (state = initialState, action) {
         case UPDATE_FILTER:
             return {
                 ...state,
-                items: action.payload
+                filters: action.payload
             };
         default:
             return state;

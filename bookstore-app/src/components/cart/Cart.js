@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {removeItem} from '../../actions/cartActions.js'
-import {addQuantity, addToCart, subQuantity} from '../../actions/cartActions'
+import {addQuantity, subQuantity} from '../../actions/cartActions'
 import Recipe from '../layout/Recipe'
 
 class Cart extends Component {
@@ -28,12 +28,8 @@ class Cart extends Component {
                 this.props.cartItems.map(item => {
                     return (
 
-                        <li className="collection-item avatar" key={item.id}>
-                            <div className="item-img">
-                                {/*<img src={'/assets/images/products/' + item.image} alt={item.name}/>*/}
-                            </div>
-
-                            <div className="item-desc">
+                        <li className="collection-item" key={item.id}>
+                            <div className="item-desc center-block">
                                 <span className="title">{item.title}</span>
                                 <p>{item.author.author}</p>
                                 <p>{item.description}</p>

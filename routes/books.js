@@ -41,7 +41,7 @@ router.get('/:id', function (req, res, next) {
         });
 });
 
-router.put('/', AdminTokenValidator, function (req, res, next) {
+router.post('/', AdminTokenValidator, function (req, res, next) {
     let bookTitle = req.body.title;
     let bookPrice = req.body.price;
     let bookPublishYear = req.body.publishYear;

@@ -36,7 +36,7 @@ router.get('/:id', TokenValidator, function (req, res, next) {
         });
 });
 
-router.put('/', TokenValidator, function (req, res, next) {
+router.post('/', TokenValidator, function (req, res, next) {
     let userId = req.userId;
     let books = req.body.books;
 

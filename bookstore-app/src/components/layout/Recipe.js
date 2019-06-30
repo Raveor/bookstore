@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {checkout} from '../../actions/cartActions.js'
-import {fetch_items} from "../../actions/itemsActions";
 
 class Recipe extends Component{
 
@@ -20,7 +19,7 @@ class Recipe extends Component{
         } else if(this.props.cartItems && this.props.cartItems.length === 0){
             alert("Add something to your cart!");
         } else{
-            this.props.checkout(this.props.user.userID, this.props.total, this.props.cartItems);
+            this.props.checkout(this.props.total, this.props.cartItems);
             alert("Your order was received!");
         }
     };
@@ -53,8 +52,8 @@ const mapDispatchToProps = (dispatch)=>{
     return{
         addShipping: ()=>{dispatch({type: 'ADD_SHIPPING'})},
         substractShipping: ()=>{dispatch({type: 'SUB_SHIPPING'})},
-        checkout: (userId, total, cartItems) => {
-            dispatch(checkout(userId, total, cartItems))
+        checkout: (total, cartItems) => {
+            dispatch(checkout(total, cartItems))
         }
     }
 };

@@ -8,13 +8,13 @@ export const fetch_items = () => dispatch => {
             type: FETCH_ITEMS,
             payload: res.data
         }))
-        .catch(err =>
+        .catch(() =>
             console.log("Error while fetching items!")
         );
 };
 
 
-export const updateFilters = filters => ({
+export const update_filters = filters => ({
     type: UPDATE_FILTER,
     payload: filters
 });

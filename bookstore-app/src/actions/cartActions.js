@@ -8,8 +8,6 @@ import {
     ERROR
 } from "../actions/types";
 import axios from "axios";
-import uuid from "uuid";
-
 
 export const getCartItems = () => {
     return {
@@ -44,35 +42,15 @@ export const addToCart=(item)=>{
     }
 };
 
-export const checkout=(userId, total, cartItems)=>{
-    axios.defaults.withCredentials = true;
-    let saleId;
+export const checkout=(total, cartItems)=>{
+    let books = cartItems.map(cart => ({
+        bookId: cart._id,
+        quantity: cart.localQuantity,
+        price: cart.localQuantity * cart.price
+    }));
     axios
-        .post("/sales", {order_date: Date.now(), total: total, user_id: userId})
-            .then(res => {
-                saleId = res.data.id;
-                let orders = cartItems.map(item => ({
-                    id: uuid.v4(),
-                    order_id: saleId,
-                    sku: item.sku,
-                    name: item.name,
-                    description: item.description,
-                    quantity: item.localQuantity,
-                    price: item.regular_price,
-                    subtotal: item.regular_price,
-            }));
-                axios.post("/ordersMany", {order: orders})
-                    .then(res => {
-                        return ({
-                            type: CHECKOUT
-                        })
-                    }).catch( () => {
-                    return {
-                        type: ERROR
-                    };
-                })
-            })
-            .catch(err => {
+        .post("/api/order", {books: books})
+            .catch(() => {
                 return {
                     type: ERROR
                 };
