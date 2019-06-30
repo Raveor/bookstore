@@ -7,6 +7,7 @@ let bcrypt = require('bcryptjs');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 
 require('./scripts/DatabaseConnection');
 
@@ -125,6 +126,62 @@ passport.use(new GoogleStrategy({
                                     .create({
                                         email: userEmail,
                                         googleId: profile.id
+                                    })
+                                    .then(user => {
+                                        return cb(null, user);
+                                    })
+                                    .catch(reason => {
+                                        return cb(reason);
+                                    })
+                            }
+                        })
+                        .catch(reason => {
+                            return cb(reason);
+                        })
+                }
+            })
+            .catch(reason => {
+                return cb(reason);
+            });
+    }
+));
+
+passport.use(new FacebookStrategy({
+        clientID: "1273087089508392",
+        clientSecret: "dd702c3818af138c5af07c7d95eaa68c",
+        callbackURL: "http://localhost:3000/api/auth/facebook/callback",
+        profileFields: ['id', 'emails', 'name']
+    },
+    function (accessToken, refreshToken, profile, cb) {
+        let UserModel = require('./models/User');
+
+        UserModel
+            .findOne({facebookId: profile.id})
+            .then(user => {
+                if (user) {
+                    return cb(null, user);
+                } else {
+                    let userEmail = profile.emails[0].value;
+
+                    UserModel
+                        .findOne({email: userEmail})
+                        .then(user => {
+                            if (user) {
+                                UserModel
+                                    .updateOne(
+                                        {email: userEmail},
+                                        {facebookId: profile.id})
+                                    .then(user => {
+                                        return cb(null, user);
+                                    })
+                                    .catch(reason => {
+                                        return cb(reason);
+                                    })
+                            } else {
+                                UserModel
+                                    .create({
+                                        email: userEmail,
+                                        facebookId: profile.id
                                     })
                                     .then(user => {
                                         return cb(null, user);
