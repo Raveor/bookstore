@@ -6,6 +6,8 @@ let router = express.Router();
 
 let config = require('../config');
 let UserModel = require('../models/User');
+let AdministratorModel = require('../models/Administrator');
+let AdminTokenValidator = require('../utils/AdminTokenValidator');
 let ApiUtils = require('../utils/ApiUtils');
 
 router.get('/google', passport.authenticate('google', {
@@ -56,6 +58,35 @@ router.post('/register', function (req, res) {
         })
         .then(user => {
             sendApiOk(res, "Your account has been created. Now you can log in.");
+        })
+        .catch(reason => {
+            sendApiError(res, 500, reason.message);
+        })
+});
+
+router.post('/administrator/regisetr', AdminTokenValidator, function (req, res) {
+    let login = req.body.login;
+    let password = req.body.password;
+
+    if (!login) {
+        sendApiError(res, 406, "Login is required");
+        return;
+    }
+
+    if (!password) {
+        sendApiError(res, 406, "Password is required");
+        return;
+    }
+
+    let hash = bcrypt.hashSync(password, 8);
+
+    AdministratorModel
+        .create({
+            login: login,
+            password: hash
+        })
+        .then(user => {
+            sendApiOk(res, "Admin account has been created.");
         })
         .catch(reason => {
             sendApiError(res, 500, reason.message);
