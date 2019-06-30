@@ -23,6 +23,16 @@ router.get('/google/callback', passport.authenticate('google', {failureRedirect:
     sendApiToken(res, token)
 });
 
+router.get('/facebook', passport.authenticate('facebook', {scope: ['email']}));
+
+router.get('/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/api/auth/login/error'}), function (req, res) {
+    let userId = req.user._id;
+
+    let token = jwt.sign({id: userId, role: "client"}, config.jwtSecret, {expiresIn: config.jwtTime});
+
+    sendApiToken(res, token)
+});
+
 router.post('/register', function (req, res) {
     let email = req.body.email;
     let password = req.body.password;
