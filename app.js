@@ -6,6 +6,7 @@ var logger = require('morgan');
 let bcrypt = require('bcryptjs');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 require('./scripts/DatabaseConnection');
 
@@ -88,6 +89,61 @@ passport.use('localAdministrator', new LocalStrategy(
                 return cb(reason);
             })
     }));
+
+passport.use(new GoogleStrategy({
+        clientID: "905285223876-camp7j3fpods61vhu6jrh83nkagsldcq.apps.googleusercontent.com",
+        clientSecret: "0fEdwmly7sCuHGAGHhkHb378",
+        callbackURL: "http://localhost:3000/api/auth/google/callback"
+    },
+    function (accessToken, refreshToken, profile, cb) {
+        let UserModel = require('./models/User');
+
+        UserModel
+            .findOne({googleId: profile.id})
+            .then(user => {
+                if (user) {
+                    return cb(null, user);
+                } else {
+                    let userEmail = profile.emails[0].value;
+
+                    UserModel
+                        .findOne({email: userEmail})
+                        .then(user => {
+                            if (user) {
+                                UserModel
+                                    .updateOne(
+                                        {email: userEmail},
+                                        {googleId: profile.id})
+                                    .then(user => {
+                                        return cb(null, user);
+                                    })
+                                    .catch(reason => {
+                                        return cb(reason);
+                                    })
+                            } else {
+                                UserModel
+                                    .create({
+                                        email: userEmail,
+                                        googleId: profile.id
+                                    })
+                                    .then(user => {
+                                        return cb(null, user);
+                                    })
+                                    .catch(reason => {
+                                        return cb(reason);
+                                    })
+                            }
+                        })
+                        .catch(reason => {
+                            return cb(reason);
+                        })
+                }
+            })
+            .catch(reason => {
+                return cb(reason);
+            });
+    }
+));
 
 passport.serializeUser(function (user, cb) {
     let userId = user._id;

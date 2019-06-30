@@ -8,6 +8,21 @@ let config = require('../config');
 let UserModel = require('../models/User');
 let ApiUtils = require('../utils/ApiUtils');
 
+router.get('/google', passport.authenticate('google', {
+    scope: [
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/userinfo.email'
+    ]
+}));
+
+router.get('/google/callback', passport.authenticate('google', {failureRedirect: '/api/auth/login/error'}), function (req, res) {
+    let userId = req.user._id;
+
+    let token = jwt.sign({id: userId, role: "client"}, config.jwtSecret, {expiresIn: config.jwtTime});
+
+    sendApiToken(res, token)
+});
+
 router.post('/register', function (req, res) {
     let email = req.body.email;
     let password = req.body.password;
@@ -37,7 +52,7 @@ router.post('/register', function (req, res) {
         })
 });
 
-router.post('/login', passport.authenticate('localClient', {failureRedirect: '/auth/login/error'}), function (req, res) {
+router.post('/login', passport.authenticate('localClient', {failureRedirect: '/api/auth/login/error'}), function (req, res) {
     let userId = req.user._id;
 
     let token = jwt.sign({id: userId, role: "client"}, config.jwtSecret, {expiresIn: config.jwtTime});
@@ -45,7 +60,7 @@ router.post('/login', passport.authenticate('localClient', {failureRedirect: '/a
     sendApiToken(res, token)
 });
 
-router.post('/administrator/login', passport.authenticate('localAdministrator', {failureRedirect: '/auth/login/error'}), function (req, res) {
+router.post('/administrator/login', passport.authenticate('localAdministrator', {failureRedirect: '/api/auth/login/error'}), function (req, res) {
     let userId = req.user._id;
 
     let token = jwt.sign({id: userId, role: "administrator"}, config.jwtSecret, {expiresIn: config.jwtTime});
