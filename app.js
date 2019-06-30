@@ -6,7 +6,7 @@ var logger = require('morgan');
 let bcrypt = require('bcryptjs');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var GoogleStrategy = require('passport-google-oauth20').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 
 require('./scripts/DatabaseConnection');
 
@@ -90,16 +90,17 @@ passport.use('localAdministrator', new LocalStrategy(
             })
     }));
 
-passport.use(new GoogleStrategy({
-        clientID: "905285223876-camp7j3fpods61vhu6jrh83nkagsldcq.apps.googleusercontent.com",
-        clientSecret: "0fEdwmly7sCuHGAGHhkHb378",
-        callbackURL: "http://localhost:3000/api/auth/google/callback"
+passport.use(new FacebookStrategy({
+        clientID: "1273087089508392",
+        clientSecret: "dd702c3818af138c5af07c7d95eaa68c",
+        callbackURL: "http://localhost:3000/api/auth/facebook/callback",
+        profileFields: ['id', 'emails', 'name']
     },
     function (accessToken, refreshToken, profile, cb) {
         let UserModel = require('./models/User');
 
         UserModel
-            .findOne({googleId: profile.id})
+            .findOne({facebookId: profile.id})
             .then(user => {
                 if (user) {
                     return cb(null, user);
@@ -113,7 +114,7 @@ passport.use(new GoogleStrategy({
                                 UserModel
                                     .updateOne(
                                         {email: userEmail},
-                                        {googleId: profile.id})
+                                        {facebookId: profile.id})
                                     .then(user => {
                                         return cb(null, user);
                                     })
@@ -124,7 +125,7 @@ passport.use(new GoogleStrategy({
                                 UserModel
                                     .create({
                                         email: userEmail,
-                                        googleId: profile.id
+                                        facebookId: profile.id
                                     })
                                     .then(user => {
                                         return cb(null, user);
