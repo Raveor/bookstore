@@ -64,7 +64,7 @@ router.post('/register', function (req, res) {
         })
 });
 
-router.post('/administrator/regisetr', AdminTokenValidator, function (req, res) {
+router.post('/administrator/register', AdminTokenValidator, function (req, res) {
     let login = req.body.login;
     let password = req.body.password;
 
