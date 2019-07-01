@@ -38,6 +38,7 @@ router.get('/facebook/callback', passport.authenticate('facebook', {failureRedir
 router.post('/register', function (req, res) {
     let email = req.body.email;
     let password = req.body.password;
+    let password2 = req.body.passwordConfirmation;
 
     if (!email) {
         sendApiError(res, 406, "Email is required");
@@ -46,6 +47,16 @@ router.post('/register', function (req, res) {
 
     if (!password) {
         sendApiError(res, 406, "Password is required");
+        return;
+    }
+
+    if (!password2) {
+        sendApiError(res, 406, "Confirm password is required");
+        return;
+    }
+
+    if(password !== password2){
+        sendApiError(res, 406, "Both passwords must be the same");
         return;
     }
 
