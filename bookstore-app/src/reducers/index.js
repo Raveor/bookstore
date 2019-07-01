@@ -3,10 +3,12 @@ import cartReducer from "./cartReducer";
 import itemsReducer from "./itemsReducer";
 import userReducer from "./userReducer";
 import filterReducer from "./filterReducer";
+import errorReducer from "./errorReducer";
 
 export default combineReducers({
     cart: cartReducer,
     items: itemsReducer,
     user: userReducer,
-    filter: filterReducer
+    filter: filterReducer,
+    errors: errorReducer
 });

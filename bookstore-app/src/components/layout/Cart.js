@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {removeItem} from '../../actions/cartActions.js'
 import {addQuantity, subQuantity} from '../../actions/cartActions'
-import Recipe from '../layout/Recipe'
+import Recipe from './Recipe'
 
 class Cart extends Component {
 

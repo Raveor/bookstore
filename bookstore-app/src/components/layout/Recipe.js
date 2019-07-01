@@ -44,7 +44,7 @@ const mapStateToProps = (state)=>{
     return{
         cartItems: state.cart.cartItems,
         total: state.cart.total,
-        user: state.user.user
+        user: state.user
     }
 };
 
