@@ -2,19 +2,25 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
 import {FaFacebookF, FaGoogle} from 'react-icons/fa';
 import {setUser, getUser} from "../../actions/userActions";
-import axios from 'axios';
 import {connect} from "react-redux";
 
 class Navbar extends Component {
+
     render() {
-        let icons = this.props.user.isAuthenticated ? "" : <React.Fragment>
-            <li><a href="/authenticate/facebook"><FaFacebookF/></a></li>
-            <li><a href="/authenticate/google"><FaGoogle/></a></li>
-        </React.Fragment>;
+        let icons =
+            this.props.user.isAuthenticated ?
+                <React.Fragment>
+                    <li>Log out</li>
+                </React.Fragment>
+                :
+                <React.Fragment>
+                    <li><a href="/authenticate/local">Log in with email</a></li>
+                    <li><a href="/authenticate/facebook"><FaFacebookF/></a></li>
+                    <li><a href="/authenticate/google"><FaGoogle/></a></li>
+                </React.Fragment>;
 
-        let admin = !this.props.user.isAdmin ? "" : <li><Link to="/admin"><i className="material-icons">info</i></Link></li>;
-
-
+        let admin = !this.props.user.isAdmin ? "" :
+            <li><Link to="/admin"><i className="material-icons">info</i></Link></li>;
 
         return (
             <nav>
@@ -46,4 +52,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
-
