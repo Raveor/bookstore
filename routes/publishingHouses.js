@@ -34,7 +34,7 @@ router.get('/:id', function (req, res, next) {
         });
 });
 
-router.put('/', AdminTokenValidator, function (req, res, next) {
+router.post('/', AdminTokenValidator, function (req, res, next) {
     let publishingHouseName = req.body.name;
 
     if (!publishingHouseName) {
