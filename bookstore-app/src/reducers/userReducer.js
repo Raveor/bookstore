@@ -18,7 +18,7 @@ export default function (state = initialState, action) {
                 ...state,
                 user: action.payload,
                 isAuthenticated: !isEmpty(action.payload),
-                isAdmin: action.payload.roleId === 1
+                isAdmin: action.payload.role === "administrator"
             };
         default:
             return state;

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
 import {FaFacebookF, FaGoogle} from 'react-icons/fa';
-import {setUser, getUser} from "../../actions/userActions";
 import {connect} from "react-redux";
+import {logoutUser} from "../../actions/authActions";
 
 class Navbar extends Component {
 
@@ -10,13 +10,13 @@ class Navbar extends Component {
         let icons =
             this.props.user.isAuthenticated ?
                 <React.Fragment>
-                    <li>Log out</li>
+                    <li><a onClick={this.props.logoutUser}>Log out</a></li>
                 </React.Fragment>
                 :
                 <React.Fragment>
-                    <li><a href="/authenticate/local">Log in with email</a></li>
-                    <li><a href="/authenticate/facebook"><FaFacebookF/></a></li>
-                    <li><a href="/authenticate/google"><FaGoogle/></a></li>
+                    <li><Link to="/authenticate/local">Log in with email</Link></li>
+                    <li><Link to="/authenticate/facebook"><FaFacebookF/></Link></li>
+                    <li><Link to="/authenticate/google"><FaGoogle/></Link></li>
                 </React.Fragment>;
 
         let admin = !this.props.user.isAdmin ? "" :
@@ -43,11 +43,8 @@ const mapStateToProps = (state) => {
     }
 };
 const mapDispatchToProps = (dispatch) => ({
-    getUser: () => {
-        dispatch(getUser())
-    },
-    setUser: () => {
-        dispatch(setUser())
+    logoutUser: () => {
+        dispatch(logoutUser())
     }
 });
 

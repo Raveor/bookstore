@@ -7,7 +7,7 @@ import {Provider} from 'react-redux';
 import store from '../store';
 import Navbar from "./layout/Navbar";
 import Home from "./layout/Home";
-import Cart from "./cart/Cart";
+import Cart from "./layout/Cart";
 import AdminRoute from "./private-route/AdminRoute";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
