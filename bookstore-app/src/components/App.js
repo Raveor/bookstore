@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import "./App.css";
-import BookTypeList from "./category/BookTypeList";
 import Landing from "./layout/Landing";
 import {Provider} from 'react-redux';
 import store from '../store';
@@ -12,14 +11,13 @@ import AdminRoute from "./private-route/AdminRoute";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import OrderList from "./order/OrderList";
-import ProductList from "./products/ProductList";
 import BookTypeForm from "./forms/BookTypeForm";
 import AuthorForm from "./forms/AuthorForm";
 import PublishingHouseForm from "./forms/PublishingHouseForm";
 import BookForm from "./forms/BookForm";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../utils/setAuthToken";
-import { setCurrentUser, logoutUser } from "../actions/authActions";
+import {logoutUser, setCurrentUser} from "../actions/authActions";
 
 
 if (localStorage.jwtToken) {
@@ -55,8 +53,6 @@ class App extends Component{
                         <Switch>
                             <AdminRoute exact path="/admin" component={Landing}/>
                             <AdminRoute exact path="/orders" component={OrderList}/>
-                            <AdminRoute exact path="/books" component={ProductList}/>
-                            <AdminRoute exact path="/bookType" component={BookTypeList}/>
                             <AdminRoute exact path="/form/bookType" component={BookTypeForm}/>
                             <AdminRoute exact path="/form/author" component={AuthorForm}/>
                             <AdminRoute exact path="/form/publishinghouse" component={PublishingHouseForm}/>

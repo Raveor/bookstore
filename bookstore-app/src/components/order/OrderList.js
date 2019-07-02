@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios";
 import OrderItem from "./OrderItem";
+import {Link} from "react-router-dom";
 
 class OrderList extends Component {
     constructor(props) {
@@ -51,14 +52,29 @@ class OrderList extends Component {
                 <p className="collection-item">There is no orders!</p>
             );
         return (
-            <div className="container" style={{backgroundColor: "white"}}>
-                <ul className="collection">
-                    <div className="collection-item collection-header">
-                        <h3>Orders</h3>
+            <div className="container row">
+                <div className="container">
+                    <div style={{marginTop: "4rem"}} className="row">
+                        <div className="col s12">
+                            <Link to="/admin" className="btn-flat waves-effect">
+                                <i className="material-icons left">keyboard_backspace</i> Back to
+                                admin panel
+                            </Link>
+                            <div className="col s12" style={{paddingLeft: "11.250px"}}>
+                                <h4>
+                                    Orders:
+                                </h4>
+                            </div>
+                            <div className="input-field col s12">
+                            </div>
+                            <ul className="collection">
+                                {products}
+                            </ul>
+                        </div>
                     </div>
-                    {products}
-                </ul>
+                </div>
             </div>
+
         );
     }
 }

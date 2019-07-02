@@ -19,8 +19,9 @@ class OrderItem extends Component {
         return this.props.expanded ? (
             <React.Fragment>
                 <ul className="collection">
-
-                    <h5>{"User email: " + order.userId.email}</h5>
+                    <li className="collection-item" style={{display: "list-item"}}>
+                        <h5>{"User email: " + order.userId.email}</h5>
+                    </li>
 
                     {order.books.map(book => (<BookItem
                         book={book}
