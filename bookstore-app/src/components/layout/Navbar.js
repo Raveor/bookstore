@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
-import {FaFacebookF, FaGoogle} from 'react-icons/fa';
 import {connect} from "react-redux";
 import {logoutUser} from "../../actions/authActions";
 
@@ -9,15 +8,9 @@ class Navbar extends Component {
     render() {
         let icons =
             this.props.user.isAuthenticated ?
-                <React.Fragment>
-                    <li><a onClick={this.props.logoutUser}>Log out</a></li>
-                </React.Fragment>
+                <li><a onClick={this.props.logoutUser}>Log out</a></li>
                 :
-                <React.Fragment>
-                    <li><Link to="/authenticate/local">Log in with email</Link></li>
-                    <li><Link to="/authenticate/facebook"><FaFacebookF/></Link></li>
-                    <li><Link to="/authenticate/google"><FaGoogle/></Link></li>
-                </React.Fragment>;
+                <li><Link to="/authenticate/local">Log in with email</Link></li>;
 
         let admin = !this.props.user.isAdmin ? "" :
             <li><Link to="/admin"><i className="material-icons">info</i></Link></li>;
