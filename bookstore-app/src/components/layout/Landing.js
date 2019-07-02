@@ -14,14 +14,11 @@ class Landing extends Component {
         return (
             <div>
                 <Link to="/">Home</Link>{' '}
-                <Link to="/users">users</Link>{' '}
                 <Link to="/orders">orders</Link>{' '}
-                <Link to="/sales">sales</Link>{' '}
-                <Link to="/categories">categories</Link>{' '}
-                <Link to="/users/form">users form</Link>{' '}
-                <Link to="/orders/form">orders form</Link>{' '}
-                <Link to="/sales/form">sales form</Link>{' '}
-                <Link to="/categories/form">categories form</Link>{' '}
+                <Link to="/form/booktype">Booktype form</Link>{' '}
+                <Link to="/form/author">Author form</Link>{' '}
+                <Link to="/form/publishinghouse">PublishingHouse form</Link>{' '}
+                <Link to="/form/book">Book form</Link>{' '}
             </div>
         );
     }

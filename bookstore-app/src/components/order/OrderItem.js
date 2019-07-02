@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
+import BookItem from "./BookItem";
 
 class OrderItem extends Component {
     constructor(props) {
@@ -8,35 +9,39 @@ class OrderItem extends Component {
     }
 
     render() {
-        let product = this.props.order;
+        console.log("entering oredr item");
+        let order = this.props.order;
+        console.log(order);
+        let price = (order.books
+            .reduce(
+                (accumulator, currentValue) => accumulator + currentValue.price * currentValue.quantity
+                , 0
+            ));
 
         return this.props.expanded ? (
-            <li className="collection-item">
-                <span
-                    className="title"
-                    onClick={() => this.props.expandFunc(null)}
-                >
-                    <h4>{product.name}</h4>
+            <React.Fragment>
+                <li>
+
+                    <h5>{"User email: " + order.userId.email}</h5>
                     <div className="secondary-content">
-                        <span>{product.price} zł</span>
+                        <span>Order id: {order._id}</span>
+                    </div>
+                </li>
+            {order.books.map(book => (<BookItem
+                    book={book}
+                    user={order.userId}
+                    key={book._id}
+                />))}
+            </React.Fragment>
 
-                        </div>
-                </span>
-                <p>Price: {product.price}</p>
-                <p>
-                    {product.description}
-                </p>
-
-            </li>
         ) : (
             <a
-                href="#!"
                 className="collection-item"
-                onClick={() => this.props.expandFunc(product.id)}
+                onClick={() => this.props.expandFunc(order._id)}
             >
                 <li>
-                    {product.name}
-                    <div className="secondary-content mr-10">{product.price} zł
+                    {order.userId.email + " order " + order._id}
+                    <div className="secondary-content">{price} zł
                     </div>
                 </li>
             </a>

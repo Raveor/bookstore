@@ -9,11 +9,12 @@ class OrderList extends Component {
     }
 
     componentDidMount() {
+        console.log("Order list załadowano ziomus");
         this.loadReports();
     }
 
     loadReports() {
-        axios.get("/orders")
+        axios.get("/api/order")
             .then(response => {
                 const orders = response.data;
                 const expand = orders.length > 0 ? orders[0].id : null;
@@ -45,9 +46,9 @@ class OrderList extends Component {
             this.state.orders && this.state.orders.length > 0 ? (
                 this.state.orders.map(order => (
                     <OrderItem
-                        key={order.id}
+                        key={order._id}
                         order={order}
-                        expanded={order.id === this.state.expand}
+                        expanded={order._id === this.state.expand}
                         expandFunc={this.setExpanded}
                         Func={this.Func}
                     />

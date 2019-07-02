@@ -13,6 +13,9 @@ const UserSchema = new mongoose.Schema({
     },
     facebookId: {
         type: String
+    },
+    isAdmin: {
+        type: Boolean
     }
 });
 

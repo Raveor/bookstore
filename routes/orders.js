@@ -9,7 +9,23 @@ let TokenValidator = require('../utils/TokenValidator');
 router.get('/', TokenValidator, function (req, res, next) {
     OrderModel
         .find()
-        .populate('bookId')
+        .populate('userId')
+        .populate({
+            path: 'books.bookId',
+            model: 'Book',
+            populate: [{
+                path: 'author',
+                model: 'Author'
+            },
+            {
+                path: 'bookType',
+                model: 'BookType'
+            },
+            {
+                path: 'publishingHouse',
+                model: 'PublishingHouse'
+            }]
+        })
         .then(orders => {
             return res
                 .status(200)
@@ -25,7 +41,23 @@ router.get('/:id', TokenValidator, function (req, res, next) {
 
     OrderModel
         .findOne({"_id": orderId})
-        .populate('bookId')
+        .populate('userId')
+        .populate({
+            path: 'books.bookId',
+            model: 'Book',
+            populate: [{
+                path: 'author',
+                model: 'Author'
+            },
+                {
+                    path: 'bookType',
+                    model: 'BookType'
+                },
+                {
+                    path: 'publishingHouse',
+                    model: 'PublishingHouse'
+                }]
+        })
         .then(order => {
             return res
                 .status(200)
