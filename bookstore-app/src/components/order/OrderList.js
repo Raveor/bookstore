@@ -36,11 +36,6 @@ class OrderList extends Component {
         this.setState({expand: id});
     };
 
-
-    Func(car) {
-        console.log("Actually nothing.")
-    };
-
     render() {
         let products =
             this.state.orders && this.state.orders.length > 0 ? (
@@ -50,7 +45,6 @@ class OrderList extends Component {
                         order={order}
                         expanded={order._id === this.state.expand}
                         expandFunc={this.setExpanded}
-                        Func={this.Func}
                     />
                 ))
             ) : (

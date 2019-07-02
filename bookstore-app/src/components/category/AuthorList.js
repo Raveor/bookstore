@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import axios from "axios";
-import CategoryItem from "./CategoryItem";
+import BookTypeItem from "./BookTypeItem";
 
-class CategoryList extends Component {
+class AuthorList extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -30,15 +30,11 @@ class CategoryList extends Component {
             });
     };
 
-    Func(car) {
-        console.log("Actually nothing.")
-    };
-
     render() {
         let categories =
             this.state.categories && this.state.categories.length > 0 ? (
                 this.state.categories.map(category => (
-                    <CategoryItem
+                    <BookTypeItem
                         key={category.id}
                         category={category}
                         Func={this.Func}
@@ -60,4 +56,4 @@ class CategoryList extends Component {
     }
 }
 
-export default CategoryList;
+export default AuthorList;
