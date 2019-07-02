@@ -18,6 +18,7 @@ import BookForm from "./forms/BookForm";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../utils/setAuthToken";
 import {logoutUser, setCurrentUser} from "../actions/authActions";
+import UserOrders from "./layout/UserOrders";
 
 
 if (localStorage.jwtToken) {
@@ -48,6 +49,7 @@ class App extends Component{
                         <Navbar/>
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/cart" component={Cart}/>
+                        <Route exact path="/user/orders" component={UserOrders}/>
                         <Route exact path="/authenticate/local" component={Login}/>
                         <Route exact path="/authenticate/register" component={Register}/>
                         <Switch>

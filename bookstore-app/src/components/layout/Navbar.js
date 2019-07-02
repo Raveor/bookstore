@@ -8,7 +8,10 @@ class Navbar extends Component {
     render() {
         let icons =
             this.props.user.isAuthenticated ?
+                <React.Fragment>
                 <li><a onClick={this.props.logoutUser}>Log out</a></li>
+                <li><Link to="/user/orders"><i className="material-icons">assignment_ind</i></Link></li>
+                </React.Fragment>
                 :
                 <li><Link to="/authenticate/local">Log in with email</Link></li>;
 
