@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from "axios";
 import {Link} from "react-router-dom";
-import classnames from "classnames";
 
 class BookTypeForm extends Component {
 
@@ -49,12 +48,11 @@ class BookTypeForm extends Component {
     };
 
 
-
     handleSubmit = e => {
         e.preventDefault();
         if (this.validateForm(this.state.errors)) {
             axios
-                .post('/api/bookType', this.state.data )
+                .post('/api/bookType', this.state.data)
                 .then(() => {
                     this.setState({
                         data: {
@@ -106,7 +104,8 @@ class BookTypeForm extends Component {
 
                             <form onSubmit={this.handleSubmit}>
                                 <div className="input-field col s12">
-                                    <input id="name" name="name" type="text" className={errors.name.length > 0 ? 'invalid' : ''}
+                                    <input id="name" name="name" type="text"
+                                           className={errors.name.length > 0 ? 'invalid' : ''}
                                            onChange={this.handleChange}/>
                                     {errors.name.length > 0 &&
                                     <span className="helper-text" data-error={errors.name}/>}

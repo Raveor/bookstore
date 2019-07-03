@@ -9,9 +9,7 @@ class OrderItem extends Component {
     }
 
     render() {
-        console.log("entering oredr item");
         let order = this.props.order;
-        console.log(order);
         let price = (order.books
             .reduce(
                 (accumulator, currentValue) => accumulator + currentValue.price * currentValue.quantity
@@ -20,19 +18,23 @@ class OrderItem extends Component {
 
         return this.props.expanded ? (
             <React.Fragment>
-                <li>
+                <ul className="collection">
+                    <li className="collection-item" style={{display: "list-item"}}>
+                        <h5>{"User email: " + order.userId.email}</h5>
+                    </li>
 
-                    <h5>{"User email: " + order.userId.email}</h5>
+                    {order.books.map(book => (<BookItem
+                        book={book}
+                        user={order.userId}
+                        key={book._id}
+                    />))}
                     <div className="secondary-content">
                         <span>Order id: {order._id}</span>
+                        <br/>
                     </div>
-                </li>
-            {order.books.map(book => (<BookItem
-                    book={book}
-                    user={order.userId}
-                    key={book._id}
-                />))}
+                </ul>
             </React.Fragment>
+
 
         ) : (
             <a
@@ -54,7 +56,6 @@ class OrderItem extends Component {
 OrderItem.propTypes = {
     expanded: PropTypes.bool,
     order: PropTypes.object.isRequired,
-    Func: PropTypes.func.isRequired,
     expandFunc: PropTypes.func.isRequired
 };
 

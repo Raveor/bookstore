@@ -1,46 +1,29 @@
-import React, {Component} from "react";
-import axios from "axios";
-import OrderItem from "./OrderItem";
-import {Link} from "react-router-dom";
+import React, {Component} from 'react';
+import {fetch_orders} from "../../actions/ordersActions";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import OrderItem from "../order/OrderItem";
 
-class OrderList extends Component {
+class UserOrders extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            expand: ""
+        };
     }
-
-    componentDidMount() {
-        console.log("Order list załadowano ziomus");
-        this.loadReports();
-    }
-
-    loadReports() {
-        axios.get("/api/order")
-            .then(response => {
-                const orders = response.data;
-                const expand = orders.length > 0 ? orders[0].id : null;
-                this.setState({
-                    orders,
-                    expand
-                });
-            })
-            .catch(error => {
-                this.setState({
-                        error
-                    }
-                );
-                console.log(error);
-            });
-    };
 
     setExpanded = id => {
         this.setState({expand: id});
     };
 
+    componentDidMount() {
+        this.props.fetch_orders();
+
+    }
     render() {
         let products =
-            this.state.orders && this.state.orders.length > 0 ? (
-                this.state.orders.map(order => (
+            this.props.orders && this.props.orders.length > 0 ? (
+                this.props.orders.map(order => (
                     <OrderItem
                         key={order._id}
                         order={order}
@@ -56,13 +39,9 @@ class OrderList extends Component {
                 <div className="container">
                     <div style={{marginTop: "4rem"}} className="row">
                         <div className="col s12">
-                            <Link to="/admin" className="btn-flat waves-effect">
-                                <i className="material-icons left">keyboard_backspace</i> Back to
-                                admin panel
-                            </Link>
                             <div className="col s12" style={{paddingLeft: "11.250px"}}>
                                 <h4>
-                                    Orders:
+                                    Your orders:
                                 </h4>
                             </div>
                             <div className="input-field col s12">
@@ -74,9 +53,23 @@ class OrderList extends Component {
                     </div>
                 </div>
             </div>
-
         );
     }
 }
 
-export default OrderList;
+UserOrders.propTypes = {
+    orders: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => {
+    return {
+        orders: state.orders.orders,
+    }
+};
+const mapDispatchToProps = (dispatch) => ({
+    fetch_orders: () => {
+        dispatch(fetch_orders())
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserOrders)

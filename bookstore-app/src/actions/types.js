@@ -11,3 +11,4 @@ export const CHECKOUT = 'CHECKOUT';
 export const SET_USER = 'SET_USER';
 export const ERROR = 'ERROR';
 export const GET_ERRORS = "GET_ERRORS";
+export const FETCH_ORDERS = "FETCH_ORDERS";
