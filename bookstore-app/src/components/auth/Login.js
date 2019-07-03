@@ -92,7 +92,7 @@ class Login extends Component {
                                 <span className="red-text">
                   {errors.email}
                                     {errors.emailnotfound}
-                </span>
+                                </span>
                             </div>
                             <div className="input-field col s12">
                                 <input
@@ -109,7 +109,7 @@ class Login extends Component {
                                 <span className="red-text">
                   {errors.password}
                                     {errors.passwordincorrect}
-                </span>
+                                </span>
                             </div>
                             <div className="col s12" style={{paddingLeft: "11.250px"}}>
                                 <button

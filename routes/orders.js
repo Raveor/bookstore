@@ -9,7 +9,23 @@ let TokenValidator = require('../utils/TokenValidator');
 router.get('/', TokenValidator, function (req, res, next) {
     OrderModel
         .find()
-        .populate('bookId')
+        .populate('userId')
+        .populate({
+            path: 'books.bookId',
+            model: 'Book',
+            populate: [{
+                path: 'author',
+                model: 'Author'
+            },
+            {
+                path: 'bookType',
+                model: 'BookType'
+            },
+            {
+                path: 'publishingHouse',
+                model: 'PublishingHouse'
+            }]
+        })
         .then(orders => {
             return res
                 .status(200)
@@ -20,12 +36,62 @@ router.get('/', TokenValidator, function (req, res, next) {
         });
 });
 
+router.get('/user', TokenValidator, function (req, res) {
+    OrderModel
+        .find({
+            userId: req.userId
+        })
+        .populate('userId')
+        .populate({
+            path: 'books.bookId',
+            model: 'Book',
+            populate: [{
+                path: 'author',
+                model: 'Author'
+            },
+                {
+                    path: 'bookType',
+                    model: 'BookType'
+                },
+                {
+                    path: 'publishingHouse',
+                    model: 'PublishingHouse'
+                }]
+        })
+        .then(orders => {
+            return res
+                .status(200)
+                .json(orders)
+        })
+        .catch(reason => {
+            sendApiError(res, 500, "Couldn't download orders: " + reason.message)
+        });
+});
+
+
+
 router.get('/:id', TokenValidator, function (req, res, next) {
     let orderId = req.params.id;
 
     OrderModel
         .findOne({"_id": orderId})
-        .populate('bookId')
+        .populate('userId')
+        .populate({
+            path: 'books.bookId',
+            model: 'Book',
+            populate: [{
+                path: 'author',
+                model: 'Author'
+            },
+                {
+                    path: 'bookType',
+                    model: 'BookType'
+                },
+                {
+                    path: 'publishingHouse',
+                    model: 'PublishingHouse'
+                }]
+        })
         .then(order => {
             return res
                 .status(200)

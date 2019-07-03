@@ -4,8 +4,6 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 
 const AdminRoute = ({component: Component, user, ...rest}) => {
-    console.log(
-        user);
     return (
     <Route
         {...rest}

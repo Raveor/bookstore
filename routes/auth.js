@@ -19,8 +19,9 @@ router.get('/google', passport.authenticate('google', {
 
 router.get('/google/callback', passport.authenticate('google', {failureRedirect: '/api/auth/login/error'}), function (req, res) {
     let userId = req.user._id;
+    let role = req.user.isAdmin ? "administrator" : "client";
 
-    let token = jwt.sign({id: userId, role: "client"}, config.jwtSecret, {expiresIn: config.jwtTime});
+    let token = jwt.sign({id: userId, role: role}, config.jwtSecret, {expiresIn: config.jwtTime});
 
     sendApiToken(res, token)
 });
@@ -29,8 +30,9 @@ router.get('/facebook', passport.authenticate('facebook', {scope: ['email']}));
 
 router.get('/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/api/auth/login/error'}), function (req, res) {
     let userId = req.user._id;
+    let role = req.user.isAdmin ? "administrator" : "client";
 
-    let token = jwt.sign({id: userId, role: "client"}, config.jwtSecret, {expiresIn: config.jwtTime});
+    let token = jwt.sign({id: userId, role: role}, config.jwtSecret, {expiresIn: config.jwtTime});
 
     sendApiToken(res, token)
 });
@@ -106,16 +108,18 @@ router.post('/administrator/register', AdminTokenValidator, function (req, res) 
 
 router.post('/login', passport.authenticate('localClient', {failureRedirect: '/api/auth/login/error'}), function (req, res) {
     let userId = req.user._id;
+    let role = req.user.isAdmin ? "administrator" : "client";
 
-    let token = jwt.sign({id: userId, role: "client"}, config.jwtSecret, {expiresIn: config.jwtTime});
+    let token = jwt.sign({id: userId, role: role}, config.jwtSecret, {expiresIn: config.jwtTime});
 
     sendApiToken(res, token)
 });
 
 router.post('/administrator/login', passport.authenticate('localAdministrator', {failureRedirect: '/api/auth/login/error'}), function (req, res) {
     let userId = req.user._id;
+    let role = req.user.isAdmin ? "administrator" : "client";
 
-    let token = jwt.sign({id: userId, role: "administrator"}, config.jwtSecret, {expiresIn: config.jwtTime});
+    let token = jwt.sign({id: userId, role: role}, config.jwtSecret, {expiresIn: config.jwtTime});
 
     sendApiToken(res, token)
 });
