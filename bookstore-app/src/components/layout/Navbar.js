@@ -21,7 +21,7 @@ class Navbar extends Component {
         return (
             <nav>
                 <div className="nav-wrapper">
-                    <Link to="/" className="brand-logo center"><i className="material-icons">cloud</i>Logo</Link>
+                    <Link to="/" className="brand-logo center">Bookstore</Link>
                     <ul className="right hide-on-med-and-down">
                         {icons}
                         <li><Link to="/cart"><i className="material-icons">shopping_cart</i></Link></li>
